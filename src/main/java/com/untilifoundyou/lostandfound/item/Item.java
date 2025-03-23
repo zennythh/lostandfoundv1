@@ -1,5 +1,5 @@
-package com.untilifoundyou.lostandfound.run;
+package com.untilifoundyou.lostandfound.item;
 
 import java.time.LocalDateTime;
 
-public record Run (Integer id, String title, LocalDateTime startedOn, LocalDateTime finishedOn, Location location){}
+public record Item (Integer itemID, String itemName, LocalDateTime postedOn, LocalDateTime timeOfConcern, ItemStatus Lost){}
