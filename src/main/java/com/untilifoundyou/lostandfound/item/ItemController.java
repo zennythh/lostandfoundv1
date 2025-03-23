@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 public class ItemController {
 
-    @GetMapping("/hello")
-    String home(){
-        return "hahahahhalopit!";
+    List<Item> findAll(){
+        return null;
     }
 
 }

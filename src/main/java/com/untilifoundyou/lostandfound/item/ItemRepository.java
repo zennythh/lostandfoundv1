@@ -1,11 +1,14 @@
 package com.untilifoundyou.lostandfound.item;
 
+import org.springframework.stereotype.Repository;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import jakarta.annotation.PostConstruct;
 
+
+@Repository
 public class ItemRepository {
 
     private List<Item> items = new ArrayList<>();
