@@ -1,5 +1,5 @@
-package com.untilifoundyou.lostandfound.run;
+package com.untilifoundyou.lostandfound.item;
 
-public enum Location{
-    Indoor, Outdoor
+public enum ItemStatus{
+    Lost, Found, Claimed, Returned
 }

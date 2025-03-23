@@ -1,5 +1,5 @@
-package com.untilifoundyou.lostandfound.run;
+package com.untilifoundyou.lostandfound.item;
 
-public class RunRepository {
+public class ItemRepository {
 
 }
