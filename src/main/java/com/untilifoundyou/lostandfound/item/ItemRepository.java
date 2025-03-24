@@ -13,7 +13,7 @@ public class ItemRepository {
 
     private List<Item> items = new ArrayList<>();
     
-    List<Run> findAll(){
+    List<Item> findAll(){
         return items;
     }
     
