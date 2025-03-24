@@ -3,6 +3,7 @@ package com.untilifoundyou.lostandfound.item;
 import org.springframework.stereotype.Repository;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -17,6 +18,11 @@ public class ItemRepository {
         return items;
     }
     
+    Optional<Item> findByID(Integer itemID){
+        return items.stream()
+        .filter(item -> item.itemID()== itemID)
+        .findFirst();
+    }
     @PostConstruct
     private void init(){
         items.add(new Item(1, "panyo na blu", "maikli", "congress highway", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost));
