@@ -3,6 +3,7 @@ package com.untilifoundyou.lostandfound.item;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,14 +44,14 @@ public class ItemController {
     //post
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void create(@RequestBody Item item){
+    void create(@Valid @RequestBody Item item){
         itemRepository.create(item);
     }
 
     //put
     //@ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@RequestBody Item item, @PathVariable Integer id){
+    void update(@Valid @RequestBody Item item, @PathVariable Integer id){
         itemRepository.update(item, id);
     }
 
