@@ -19,7 +19,7 @@ public class ItemRepository {
     
     @PostConstruct
     private void init(){
-        items.add(new Item(1, "panyo na blu", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost));
-        items.add(new Item(2, "selpon", LocalDateTime.now(), LocalDateTime.now().minus(3, ChronoUnit.HOURS), ItemStatus.Found));
+        items.add(new Item(Integer.valueOf(1), "panyo na blu", "maliit lang po", "sa labas ng Room 301, Congress Campus", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost));
+        items.add(new Item(Integer.valueOf(2), "selpon", "tulfone", "sa F1 cr ng Silang Campus", LocalDateTime.now(), LocalDateTime.now().minus(3, ChronoUnit.HOURS), ItemStatus.Found));
     }
 }
