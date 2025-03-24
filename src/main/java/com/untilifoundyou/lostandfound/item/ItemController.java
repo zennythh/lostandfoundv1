@@ -35,7 +35,7 @@ public class ItemController {
 
         Optional<Item> item = itemRepository.findByID(id);
         if(item.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ItemNotFoundException();
         }
         return item.get();
     }
