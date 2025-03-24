@@ -25,7 +25,7 @@ public class LostandfoundApplication {
 	@Bean
 	CommandLineRunner runner(){
 		return args -> {
-			Item items = new Item(69, "my will to live", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost);
+			Item items = new Item(69, "my will to live", "hahaha", "sahahah", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost);
 			log.info("Run: "+items);
 		};
 	}
