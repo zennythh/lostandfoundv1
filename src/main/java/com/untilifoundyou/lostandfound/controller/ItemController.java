@@ -29,12 +29,12 @@ public class ItemController {
     }
     
     @GetMapping("")
-    List<Item> findAll(){
+    public List<Item> findAll(){
         return itemRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    Item findByID(@PathVariable Integer id){
+    public Item findByID(@PathVariable Integer id){
 
         Optional<Item> item = itemRepository.findByID(id);
         if(item.isEmpty()){
@@ -46,21 +46,21 @@ public class ItemController {
     //post
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    void create(@Valid @RequestBody Item item){
+    public void create(@Valid @RequestBody Item item){
         itemRepository.create(item);
     }
 
     //put
     //@ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    void update(@Valid @RequestBody Item item, @PathVariable Integer id){
+    public void update(@Valid @RequestBody Item item, @PathVariable Integer id){
         itemRepository.update(item, id);
     }
 
     //delete
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Integer id){
+    public void delete(@PathVariable Integer id){
         itemRepository.delete(id);
     }
 
