@@ -1,4 +1,4 @@
-package com.untilifoundyou.lostandfound.item;
+package com.untilifoundyou.lostandfound.model;
 
 import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;

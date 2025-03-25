@@ -1,5 +1,6 @@
-package com.untilifoundyou.lostandfound.item;
+package com.untilifoundyou.lostandfound.repository;
 
+import com.untilifoundyou.lostandfound.model.*;
 import org.springframework.stereotype.Repository;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
@@ -14,28 +15,28 @@ public class ItemRepository {
 
     private List<Item> items = new ArrayList<>();
     
-    List<Item> findAll(){
+    public List<Item> findAll(){
         return items;
     }
     
-    Optional<Item> findByID(Integer itemID){
+    public Optional<Item> findByID(Integer itemID){
         return items.stream()
         .filter(item -> item.itemID()== itemID)
         .findFirst();
     }
 
-    void create(Item item){
+    public void create(Item item){
         items.add(item);
     }
 
-    void update(Item item, Integer id){
+    public void update(Item item, Integer id){
         Optional<Item> existingItem = findByID(id);
         if(existingItem.isPresent()){
             items.set(items.indexOf(existingItem.get()), item);
         }    
     }
     
-    void delete(Integer id) {
+    public void delete(Integer id) {
         items.removeIf(item -> item.itemID().equals(id));
     }
 
