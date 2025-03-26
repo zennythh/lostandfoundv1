@@ -23,11 +23,4 @@ public class LostandfoundApplication {
 		log.info("Application started successfully.");
 
 	}
-	@Bean
-	CommandLineRunner runner(){
-		return args -> {
-			Item items = new Item(3, "my will to live", "hahaha", "sahahah", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost);
-			log.info("Items: "+items);
-		};
-	}
 }
