@@ -47,8 +47,4 @@ public class ItemRepository {
         items.add(new Item(99, "Test Item", "Just testing", "Test Location", LocalDateTime.now(), LocalDateTime.now(), ItemStatus.Lost, ItemCampus.Congress));
         System.out.println("Initialized items: " + items);
     }
-
-    @Autowired
-    public ItemRepository() {
-        this.init(); // Explicitly call initialization
 }

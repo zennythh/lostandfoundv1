@@ -9,8 +9,8 @@ public record Item(
     String name,
     String description,
     String location, 
-    LocalDateTime foundDate,
-    LocalDateTime reportedDate,
+    LocalDateTime reportedOn,
+    LocalDateTime foundOn,
     ItemStatus status,
     ItemCampus campus
 ) {}
