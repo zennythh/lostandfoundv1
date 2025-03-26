@@ -51,7 +51,7 @@ public class ItemController {
     }
 
     //put
-    //@ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
     public void update(@Valid @RequestBody Item item, @PathVariable Integer id){
         itemRepository.update(item, id);
