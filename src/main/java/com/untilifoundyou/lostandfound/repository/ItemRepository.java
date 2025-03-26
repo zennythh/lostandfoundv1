@@ -39,10 +39,16 @@ public class ItemRepository {
     public void delete(Integer id) {
         items.removeIf(item -> item.itemID().equals(id));
     }
-
-    /*@PostConstruct
+    
+    @PostConstruct
     private void init(){
         items.add(new Item(1, "panyo na blu", "maikli", "congress highway", LocalDateTime.now(), LocalDateTime.now().minus(1, ChronoUnit.HOURS), ItemStatus.Lost, ItemCampus.Congress));
         items.add(new Item(2, "selpon", "tulfone", "bagong silang phase 1", LocalDateTime.now(), LocalDateTime.now().minus(3, ChronoUnit.HOURS), ItemStatus.Found, ItemCampus.BagongSilang));
-    }*/
+        items.add(new Item(99, "Test Item", "Just testing", "Test Location", LocalDateTime.now(), LocalDateTime.now(), ItemStatus.Lost, ItemCampus.Congress));
+        System.out.println("Initialized items: " + items);
+    }
+
+    @Autowired
+    public ItemRepository() {
+        this.init(); // Explicitly call initialization
 }
