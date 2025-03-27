@@ -1,4 +1,4 @@
-package com.untilifoundyou.lostandfound.model;
+package com.untilifoundyou.lostandfound.enums;
 
 public enum ItemStatus{
     Lost, Found, Claimed, Returned

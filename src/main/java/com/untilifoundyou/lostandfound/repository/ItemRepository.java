@@ -2,6 +2,7 @@ package com.untilifoundyou.lostandfound.repository;
 
 import com.untilifoundyou.lostandfound.model.*;
 import com.untilifoundyou.lostandfound.controller.*;
+import com.untilifoundyou.lostandfound.enums.*;
 import org.springframework.stereotype.Repository;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ItemRepository {
     // FIND BY CAMPUS
     public Optional<Item> findByCampus(ItemCampus campus) {
         return jdbcClient.sql("SELECT * FROM Item WHERE campus = ?")
-        .params(List.of(getCampus.toString()))
+        .params(List.of(campus.toString()))
         .query(Item.class)
         .optional();
 }
@@ -50,7 +51,7 @@ public class ItemRepository {
     // CREATE METHOD
      public void create(Item item) {
         var updated = jdbcClient.sql("INSERT INTO Item (item_id, name, description, location, reported_on, found_on, status, campus) values(?,?,?,?,?,?,?,?)")
-        .params(List.of(item.getItem_id(), item.getName(), item.getDescription(), item.getLocation(), item.getReportedOn(), item.getFoundOn(), item.getStatus().toString(), item.getCampus().toString()))
+        .params(List.of(item.getItemId(), item.getName(), item.getDescription(), item.getLocation(), item.getReportedOn(), item.getFoundOn(), item.getStatus().toString(), item.getCampus().toString()))
         .update();
 
         Assert.state(updated == 1, "Failed to create item " + item.getName());
@@ -59,7 +60,7 @@ public class ItemRepository {
     // UPDATE METHOD
     public void update (Item item, Integer itemid) {
         var updated = jdbcClient.sql("update item set name = ?, description = ?, location = ?, reported_on = ?, found_on = ?,  status = ?, campus = ? where item_id = ?")
-        .params(List.of(item.getItem_id(), item.getName(), item.getDescription(), item.getLocation(), item.getReportedOn(), item.getFoundOn(), item.getStatus().toString(), item.getCampus().toString()))
+        .params(List.of(item.getItemId(), item.getName(), item.getDescription(), item.getLocation(), item.getReportedOn(), item.getFoundOn(), item.getStatus().toString(), item.getCampus().toString()))
         .update();
 
         Assert.state(updated == 1, "Failed to update item " + item.getName());

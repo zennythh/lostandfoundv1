@@ -33,7 +33,7 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
-/*    @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public Item findByID(@PathVariable Integer id){
 
         Optional<Item> item = itemRepository.findByID(id);
@@ -62,5 +62,5 @@ public class ItemController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
         itemRepository.delete(id);
-    }*/
+    }
 }

@@ -17,7 +17,7 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer item_id;
+    private Integer itemId;
 
     @NotEmpty
     @Column(nullable = false)
