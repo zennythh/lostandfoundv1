@@ -22,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/items")
 public class ItemController {
 
-    private final ItemRepository itemRepository;
+    public final ItemRepository itemRepository;
 
     public ItemController(ItemRepository itemRepository){
         this.itemRepository = itemRepository;
@@ -33,7 +33,7 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+/*    @GetMapping("/{id}")
     public Item findByID(@PathVariable Integer id){
 
         Optional<Item> item = itemRepository.findByID(id);
@@ -62,6 +62,5 @@ public class ItemController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
         itemRepository.delete(id);
-    }
-
+    }*/
 }

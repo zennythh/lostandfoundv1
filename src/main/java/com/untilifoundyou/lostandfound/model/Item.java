@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 public record Item(
-    Integer itemID,
+    Integer item_id,
     @NotEmpty
     String name,
     String description,
