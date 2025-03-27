@@ -1,43 +1,45 @@
+{ "items": 
 [
     {
-      "item_id": 1,
-      "name": "panyo",
-      "description": "maikli",
-      "location": "congress highway",
-      "reportedOn": "2020-01-18T00:00:00",
-      "foundOn": "2020-01-18T12:00:00",
-      "status": "Lost",
-      "campus": "Congress"
+    "item_id": 1,
+    "name": "panyo",
+    "description": "maikli",
+    "location": "congress highway",
+    "reportedOn": "2020-01-18T00:00:00",
+    "foundOn": "2020-01-18T12:00:00",
+    "status": "Lost",
+    "campus": "Congress"
     },
     {
-        "item_id": 2,
-        "name": "tulfone",
-        "description": "itim",
-        "location": "silang room 101",
-        "reportedOn": "2020-01-17T00:00:00",
-        "foundOn": "2020-01-17T12:00:00",
-        "status": "Found",
-        "campus": "Bagong_Silang"
+    "item_id": 2,
+    "name": "tulfone",
+    "description": "itim",
+    "location": "silang room 101",
+    "reportedOn": "2020-01-17T00:00:00",
+    "foundOn": "2020-01-17T12:00:00",
+    "status": "Found",
+    "campus": "Bagong_Silang"
     },
     {
-        "item_id": 3,
-        "name": "wallet",
-        "description": "blue tas walang laman",
-        "location": "jnv camarin",
-        "reportedOn": "2020-01-16T00:00:00",
-        "foundOn": "2020-01-16T12:00:00",
-        "status": "Lost",
-        "campus": "Camarin"
-      },
-      {
-          "item_id": 4,
-          "name": "aquaflash",
-          "description": "red",
-          "location": "ucc south",
-          "reportedOn": "2020-01-15T00:00:00",
-          "foundOn": "2020-01-15T12:00:00",
-          "status": "Found",
-          "campus": "South"
-      }
-
-  ]
+    "item_id": 3,
+    "name": "wallet",
+    "description": "blue tas walang laman",
+    "location": "jnv camarin",
+    "reportedOn": "2020-01-16T00:00:00",
+    "foundOn": "2020-01-16T12:00:00",
+    "status": "Lost",
+    "campus": "Camarin"
+    },
+    {
+    "item_id": 4,
+    "name": "aquaflash",
+    "description": "red",
+    "location": "ucc south",
+    "reportedOn": "2020-01-15T00:00:00",
+    "foundOn": "2020-01-15T12:00:00",
+    "status": "Found",
+    "campus": "South"
+    }
+]    
+}
+   
