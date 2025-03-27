@@ -1,16 +1,45 @@
 package com.untilifoundyou.lostandfound.model;
 
+import com.untilifoundyou.lostandfound.enums.ItemStatus;
+import com.untilifoundyou.lostandfound.enums.ItemCampus;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
 import java.time.LocalDateTime;
 
-public record Item(
-    Integer item_id,
+@Entity
+@Table(name = "item")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer item_id;
+
     @NotEmpty
-    String name,
-    String description,
-    String location, 
-    LocalDateTime reportedOn,
-    LocalDateTime foundOn,
-    ItemStatus status,
-    ItemCampus campus
-) {}
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description = "";
+
+    @Column(nullable = false)
+    private String location = "";
+
+    @Column(nullable = false)
+    private LocalDateTime reportedOn = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private LocalDateTime foundOn = LocalDateTime.now();
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ItemStatus status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ItemCampus campus;
+}
