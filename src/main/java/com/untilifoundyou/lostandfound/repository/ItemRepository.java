@@ -18,8 +18,8 @@ import org.springframework.util.Assert;
 @Repository
 public class ItemRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(ItemRepository.class);
-    private final JdbcClient jdbcClient;
+    public static final Logger log = LoggerFactory.getLogger(ItemRepository.class);
+    public final JdbcClient jdbcClient;
 
     public ItemRepository(JdbcClient jdbcClient) {
         this.jdbcClient = jdbcClient;
@@ -86,7 +86,6 @@ public class ItemRepository {
     public void saveAll(List<Item> items) {
         items.stream().forEach(this::create);
     }
- 
 }
 
 
