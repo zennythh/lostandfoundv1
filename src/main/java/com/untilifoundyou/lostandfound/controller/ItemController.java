@@ -34,7 +34,7 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public Item findByID(@PathVariable Integer id){
+    public Item findByID(@PathVariable("id") Integer id){
 
         Optional<Item> item = itemRepository.findByID(id);
         if(item.isEmpty()){
@@ -43,24 +43,31 @@ public class ItemController {
         return item.get();
     }
 
-    //post
+    //CREATE ITEM
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public void create(@Valid @RequestBody Item item){
         itemRepository.create(item);
     }
 
-    //put
+    //UPDATE ITEM
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/{id}")
-    public void update(@Valid @RequestBody Item item, @PathVariable Integer id){
+    public void update(@Valid @RequestBody Item item, @PathVariable("id") Integer id){
         itemRepository.update(item, id);
     }
 
-    //delete
+    //RESTORE ITEM
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/restore/{id}")
+    public void restore(@PathVariable("id") Integer id){
+        itemRepository.restore(id);
+    }
+
+    //DELETE ITEM
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public void delete(@PathVariable("id") Integer id){
         itemRepository.delete(id);
     }
 }

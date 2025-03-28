@@ -29,7 +29,7 @@ public class ItemsJson implements CommandLineRunner {
         if (itemRepository.count()==0) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/data/items.json")) {
                 Items allItems = objectMapper.readValue(inputStream, Items.class);
-                log.info("Reading {} items from JSON data and saving to in memory collection.", allItems.items().size());
+                log.info("Reading {} items from JSON data and saving to MySQL database.", allItems.items().size());
                 itemRepository.saveAll(allItems.items());
             } catch (IOException e) {
                 throw new RuntimeException("Failed to read JSON data", e);

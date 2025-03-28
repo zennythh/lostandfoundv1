@@ -42,4 +42,7 @@ public class Item {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ItemCampus campus;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
 }
