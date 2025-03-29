@@ -3,12 +3,12 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     color: #333;
 }
 
 header {
-    background: transparent;
+    background: white;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
@@ -26,16 +26,19 @@ header {
 
 .logo-img {
     height: 50px;
+    margin-left: 400px;
 }
 
 .logo-text {
     font-size: 24px;
     font-weight: bold;
+    margin-right: 500px;
 }
 
 nav {
     display: flex;
     gap: 20px;
+    margin-right: 300px;
 }
 
 nav a {
@@ -46,6 +49,7 @@ nav a {
 }
 
 .hero {
+    padding-top: 80px;
     font-family: 'Tektur', sans-serif;
     position: relative;
     min-height: 70vh;
@@ -85,6 +89,9 @@ nav a {
     margin-top: 15px;
 }
 
+.cta-btn:hover {
+    transform: scale(1.1);
+}
 .features {
     text-align: center;
     padding: 50px 20px;
@@ -136,14 +143,61 @@ footer {
 .introduction {
     padding: 25px;
     margin: 25px;
-    margin-left: 100px;
-    margin-right: 100px;
+    margin-left: 200px;
+    margin-right: 200px;
     text-align: center;
     background-color: antiquewhite;
     font-size: 18px;
     border-radius: 10px;
-
+    border-style: outset;
 }
+
+.tutorial {
+    background: #ffffff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.tutorial-container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tutorial h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.tutorial h3 {
+    font-size: 22px;
+    color: #D95C20;
+    margin-top: 20px;
+}
+
+.tutorial p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.tutorial ul {
+    list-style-type: disc;
+    text-align: left;
+    margin: 15px 0 20px;
+    padding-left: 40px;
+}
+
+.tutorial ul li {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
