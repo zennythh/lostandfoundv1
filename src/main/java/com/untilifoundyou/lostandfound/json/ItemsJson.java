@@ -35,7 +35,7 @@ public class ItemsJson implements CommandLineRunner {
                 throw new RuntimeException("Failed to read JSON data", e);
             }
         } else {
-            log.info("Not loading runs from JSON data as the repository has data.");
+            log.info("Not loading items from JSON data as the repository has data.");
         }
 
     }
