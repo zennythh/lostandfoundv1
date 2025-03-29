@@ -42,7 +42,7 @@ public class ItemRepository {
     
     // FIND BY ID
     public Optional<Item> findByID(Integer itemid) {
-    return jdbcClient.sql("SELECT item_id, name, description, location, reported_on, found_on, status, campus FROM Item WHERE item_id = ?")
+    return jdbcClient.sql("SELECT * FROM Item WHERE item_id = ? AND deleted = FALSE")
         .params(List.of(itemid))
         .query(Item.class)
         .optional();
@@ -50,7 +50,7 @@ public class ItemRepository {
 
     // FIND BY CAMPUS
     public Optional<Item> findByCampus(ItemCampus campus) {
-        return jdbcClient.sql("SELECT * FROM Item WHERE campus = ?")
+        return jdbcClient.sql("SELECT * FROM Item WHERE campus = ? AND deleted = FALSE")
         .params(List.of(campus.toString()))
         .query(Item.class)
         .optional();
@@ -58,16 +58,16 @@ public class ItemRepository {
 
     // FIND BY STATUS
     public Optional<Item> findByStatus(ItemStatus status) {
-        return jdbcClient.sql("SELECT * FROM Item WHERE status = ?")
-        .params(List.of(status.toString()))
+        return jdbcClient.sql("SELECT * FROM Item WHERE status = ? AND deleted = FALSE")
+        .params(status.toString())
         .query(Item.class)
         .optional();
 }   
 
     // FIND BY CATEGORY
     public Optional<Item> findByCategory(ItemCategory category) {
-        return jdbcClient.sql("SELECT * FROM Item WHERE category = ?")
-        .params(List.of(category.toString()))
+        return jdbcClient.sql("SELECT * FROM Item WHERE category = ? AND deleted = FALSE")
+        .params(category.toString())
         .query(Item.class)
         .optional();
 }
@@ -83,15 +83,13 @@ public class ItemRepository {
         params.add(item.getStatus() != null ? item.getStatus().toString() : null);
         params.add(item.getCampus() != null ? item.getCampus().toString() : null);
         params.add(item.getCategory() != null ? item.getCategory().toString() : null);
-
-        var updated = jdbcClient.sql("INSERT INTO Item (name, description, location, reported_on, found_on, status, campus, category) values(?,?,?,?,?,?,?,?)")
+        var updated = jdbcClient.sql("INSERT INTO Item (name, description, location, reported_on, found_on, status, campus, category, deleted) values(?,?,?,?,?,?,?,?,FALSE)")
             .params(params)
             .update();
 
         Assert.state(updated == 1, "Failed to create item " + item.getName());
 }
 
-    
     // UPDATE METHOD
     public void update(Item item, Integer itemid) {
         List<Object> params = new ArrayList<>();
@@ -100,9 +98,9 @@ public class ItemRepository {
         params.add(item.getLocation());
         params.add(item.getReportedOn());
         params.add(item.getFoundOn());
-        params.add(item.getStatus().toString());
-        params.add(item.getCampus().toString());
-        params.add(item.getCategory().toString());
+        params.add(item.getStatus() != null ? item.getStatus().toString() : null);
+        params.add(item.getCampus() != null ? item.getCampus().toString() : null);
+        params.add(item.getCategory() != null ? item.getCategory().toString() : null);        
         params.add(itemid);
 
        var updated = jdbcClient.sql("UPDATE item SET name = ?, description = ?, location = ?, reported_on = ?, found_on = ?, status = ?, campus = ?, category = ? WHERE item_id = ?")
@@ -111,7 +109,6 @@ public class ItemRepository {
 
         Assert.state(updated == 1, "Failed to update item " + item.getName());
     }
-
 
     // DELETE METHOD
     public void delete(Integer itemId) {
@@ -131,15 +128,23 @@ public class ItemRepository {
         Assert.state(updated == 1, "Failed to restore the deleted item " + itemId);
     }
 
-
     // RETURN ITEM COUNT METHOD
-    public int count(){
-        return jdbcClient.sql("SELECT * FROM Item")
+    public int itemCount(){
+        return jdbcClient.sql("SELECT * FROM Item WHERE deleted = FALSE")
         .query()
         .listOfRows()
         .size();
     }
 
+    // RETURN ITEM COUNT BY STATUS
+    public int itemCountByStatus(ItemStatus status){
+        return jdbcClient.sql("SELECT * FROM Item WHERE status = ? AND deleted = FALSE")
+        .params(status.toString())
+        .query()
+        .listOfRows()
+        .size();
+        }
+    
     // SAVE ALL ITEMS METHOD
     public void saveAll(List<Item> items) {
         items.stream().forEach(this::create);

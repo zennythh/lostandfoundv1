@@ -26,7 +26,7 @@ public class ItemsJson implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if (itemRepository.count()==0) {
+        if (itemRepository.itemCount()==0) {
             try (InputStream inputStream = TypeReference.class.getResourceAsStream("/data/items.json")) {
                 Items allItems = objectMapper.readValue(inputStream, Items.class);
                 log.info("Reading {} items from JSON data and saving to MySQL database.", allItems.items().size());
