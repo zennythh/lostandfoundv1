@@ -35,7 +35,7 @@ public class AuthController {
 
             return ResponseEntity.ok("Login Successful!");
     }
-        System.out.println("Invalid login attempt.");
+        logger.info("Login request denied for user: " + username);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
     }
 

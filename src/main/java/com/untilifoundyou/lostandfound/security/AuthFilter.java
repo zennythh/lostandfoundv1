@@ -18,13 +18,20 @@ public class AuthFilter implements Filter{
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
         String path = req.getRequestURI();
-
+    
+        System.out.println("Request to: " + path);
+        System.out.println("Session ID: " + (session != null ? session.getId() : "No session"));
+        System.out.println("Logged-in user: " + (session != null ? session.getAttribute("loggedInUser") : "None"));
+    
         if (!path.startsWith("/auth") && (session == null || session.getAttribute("loggedInUser") == null)) {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
             return;
         }
+    
         chain.doFilter(request, response);
     }
+    
 }
