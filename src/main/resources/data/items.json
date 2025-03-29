@@ -1,45 +1,60 @@
 { "items": 
 [
     {
-    "item_id": 1,
-    "name": "panyo",
-    "description": "maikli",
-    "location": "congress highway",
-    "reportedOn": "2020-01-18T00:00:00",
-    "foundOn": "2020-01-18T12:00:00",
-    "status": "Lost",
-    "campus": "Congress"
+      "itemId": 1,
+      "name": "panyo",
+      "description": "mahaba",
+      "location": "congress highway",
+      "reportedOn": "2020-01-18T00:00:00",
+      "foundOn": "2020-01-18T12:00:00",
+      "status": "Lost",
+      "campus": "Congress",
+      "deleted": false
     },
     {
-    "item_id": 2,
-    "name": "tulfone",
-    "description": "itim",
-    "location": "silang room 101",
-    "reportedOn": "2020-01-17T00:00:00",
-    "foundOn": "2020-01-17T12:00:00",
-    "status": "Found",
-    "campus": "Bagong_Silang"
+      "itemId": 2,
+      "name": "tulfone",
+      "description": "itim",
+      "location": "silang room 101",
+      "reportedOn": "2020-01-17T00:00:00",
+      "foundOn": "2020-01-17T12:00:00",
+      "status": "Found",
+      "campus": "Bagong_Silang",
+      "deleted": false
     },
     {
-    "item_id": 3,
-    "name": "wallet",
-    "description": "blue tas walang laman",
-    "location": "jnv camarin",
-    "reportedOn": "2020-01-16T00:00:00",
-    "foundOn": "2020-01-16T12:00:00",
-    "status": "Lost",
-    "campus": "Camarin"
+      "itemId": 3,
+      "name": "wallet",
+      "description": "blue tas walang laman",
+      "location": "jnv camarin",
+      "reportedOn": "2020-01-16T00:00:00",
+      "foundOn": "2020-01-16T12:00:00",
+      "status": "Lost",
+      "campus": "Camarin",
+      "deleted": false
     },
     {
-    "item_id": 4,
-    "name": "aquaflash",
-    "description": "red",
-    "location": "ucc south",
-    "reportedOn": "2020-01-15T00:00:00",
-    "foundOn": "2020-01-15T12:00:00",
-    "status": "Found",
-    "campus": "South"
+      "itemId": 4,
+      "name": "aquaflask",
+      "description": "red",
+      "location": "ucc south",
+      "reportedOn": "2020-01-15T00:00:00",
+      "foundOn": "2020-01-15T12:00:00",
+      "status": "Found",
+      "campus": "South",
+      "deleted": false
+    },
+    {
+      "itemId": 5,
+      "name": "panyo",
+      "description": "maikli",
+      "location": "congress rm 101",
+      "reportedOn": "2025-03-28T19:56:07",
+      "foundOn": "2025-03-28T19:56:07",
+      "status": "Lost",
+      "campus": "Congress",
+      "deleted": false
     }
-]    
+  ] 
 }
    
