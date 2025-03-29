@@ -39,7 +39,8 @@ public class ItemRepository {
         .query(Item.class)
         .list();
     }
-
+    
+    // FIND BY ID
     public Optional<Item> findByID(Integer itemid) {
     return jdbcClient.sql("SELECT item_id, name, description, location, reported_on, found_on, status, campus FROM Item WHERE item_id = ?")
         .params(List.of(itemid))
@@ -51,6 +52,22 @@ public class ItemRepository {
     public Optional<Item> findByCampus(ItemCampus campus) {
         return jdbcClient.sql("SELECT * FROM Item WHERE campus = ?")
         .params(List.of(campus.toString()))
+        .query(Item.class)
+        .optional();
+}   
+
+    // FIND BY STATUS
+    public Optional<Item> findByStatus(ItemStatus status) {
+        return jdbcClient.sql("SELECT * FROM Item WHERE status = ?")
+        .params(List.of(status.toString()))
+        .query(Item.class)
+        .optional();
+}   
+
+    // FIND BY CATEGORY
+    public Optional<Item> findByCategory(ItemCategory category) {
+        return jdbcClient.sql("SELECT * FROM Item WHERE category = ?")
+        .params(List.of(category.toString()))
         .query(Item.class)
         .optional();
 }
@@ -65,8 +82,9 @@ public class ItemRepository {
         params.add(item.getFoundOn());
         params.add(item.getStatus() != null ? item.getStatus().toString() : null);
         params.add(item.getCampus() != null ? item.getCampus().toString() : null);
+        params.add(item.getCategory() != null ? item.getCategory().toString() : null);
 
-        var updated = jdbcClient.sql("INSERT INTO Item (name, description, location, reported_on, found_on, status, campus) values(?,?,?,?,?,?,?)")
+        var updated = jdbcClient.sql("INSERT INTO Item (name, description, location, reported_on, found_on, status, campus, category) values(?,?,?,?,?,?,?,?)")
             .params(params)
             .update();
 
@@ -84,9 +102,10 @@ public class ItemRepository {
         params.add(item.getFoundOn());
         params.add(item.getStatus().toString());
         params.add(item.getCampus().toString());
+        params.add(item.getCategory().toString());
         params.add(itemid);
 
-       var updated = jdbcClient.sql("UPDATE item SET name = ?, description = ?, location = ?, reported_on = ?, found_on = ?, status = ?, campus = ? WHERE item_id = ?")
+       var updated = jdbcClient.sql("UPDATE item SET name = ?, description = ?, location = ?, reported_on = ?, found_on = ?, status = ?, campus = ?, category = ? WHERE item_id = ?")
            .params(params)
            .update();
 

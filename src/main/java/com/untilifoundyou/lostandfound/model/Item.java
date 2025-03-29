@@ -2,6 +2,8 @@ package com.untilifoundyou.lostandfound.model;
 
 import com.untilifoundyou.lostandfound.enums.ItemStatus;
 import com.untilifoundyou.lostandfound.enums.ItemCampus;
+import com.untilifoundyou.lostandfound.enums.ItemCategory;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -42,6 +44,10 @@ public class Item {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ItemCampus campus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ItemCategory category;
 
     @Column(nullable = false)
     private Boolean deleted = false;
