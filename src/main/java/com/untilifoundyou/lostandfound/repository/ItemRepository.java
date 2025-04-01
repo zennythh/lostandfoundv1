@@ -75,6 +75,7 @@ public class ItemRepository {
     // CREATE METHOD
     public void create(Item item) {
         List<Object> params = new ArrayList<>();
+
         params.add(item.getName());
         params.add(item.getDescription());
         params.add(item.getLocation());
@@ -83,12 +84,37 @@ public class ItemRepository {
         params.add(item.getStatus() != null ? item.getStatus().toString() : null);
         params.add(item.getCampus() != null ? item.getCampus().toString() : null);
         params.add(item.getCategory() != null ? item.getCategory().toString() : null);
-        var updated = jdbcClient.sql("INSERT INTO Item (name, description, location, reported_on, found_on, status, campus, category, deleted) values(?,?,?,?,?,?,?,?,FALSE)")
-            .params(params)
-            .update();
+
+        // Get author_id (default to guest if null)
+        Long authorId;
+        if (item.getAuthor() == null || item.getAuthor().getId() == null) {
+            // Fetch the guest user from the database
+            authorId = jdbcClient.sql("SELECT id FROM users WHERE username = 'guest'")
+                    .query(Long.class)
+                    .single();
+
+            // Set the 'author' in the item object too (important for later use and serialization)
+            User guestUser = jdbcClient.sql("SELECT * FROM users WHERE id = ?")
+                    .params(authorId)
+                    .query(User.class)
+                    .single();
+
+            item.setAuthor(guestUser);  // Set the guest user as the author of the item
+        } else {
+            authorId = item.getAuthor().getId();
+        }
+
+        params.add(authorId); // Add the resolved author_id
+
+        var updated = jdbcClient.sql(
+                        "INSERT INTO Item (name, description, location, reported_on, found_on, status, campus, category, deleted, author_id) " +
+                                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, FALSE, ?)"
+                )
+                .params(params)
+                .update();
 
         Assert.state(updated == 1, "Failed to create item " + item.getName());
-}
+    }
 
     // UPDATE METHOD
     public void update(Item item, Integer itemid) {

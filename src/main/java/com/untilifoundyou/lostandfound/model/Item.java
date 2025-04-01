@@ -3,7 +3,6 @@ package com.untilifoundyou.lostandfound.model;
 import com.untilifoundyou.lostandfound.enums.ItemStatus;
 import com.untilifoundyou.lostandfound.enums.ItemCampus;
 import com.untilifoundyou.lostandfound.enums.ItemCategory;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -51,4 +50,8 @@ public class Item {
 
     @Column(nullable = false)
     private Boolean deleted = false;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
 }
