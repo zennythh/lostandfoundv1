@@ -1,5 +1,6 @@
 package com.untilifoundyou.lostandfound.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.untilifoundyou.lostandfound.enums.ItemStatus;
 import com.untilifoundyou.lostandfound.enums.ItemCampus;
 import com.untilifoundyou.lostandfound.enums.ItemCategory;
@@ -53,5 +54,6 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id", nullable = false)
+    @JsonManagedReference
     private User author;
 }

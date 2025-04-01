@@ -1,5 +1,7 @@
 package com.untilifoundyou.lostandfound.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.untilifoundyou.lostandfound.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -38,5 +40,7 @@ public class User {
     private UserRole role;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    @JsonIgnore
     private List<Item> items = new ArrayList<>();
 }

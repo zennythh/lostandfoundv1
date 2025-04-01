@@ -113,6 +113,15 @@ public class ItemRepository {
                 .params(params)
                 .update();
 
+        // Now fetch the item from the database and populate the 'author' field
+        Item savedItem = jdbcClient.sql("SELECT * FROM item WHERE itemId = ?")
+                .params(item.getItemId())  // Use the saved item's ID to fetch it
+                .query(Item.class)
+                .single();
+
+        // Now you have the complete item with the author properly populated
+        item.setAuthor(savedItem.getAuthor());
+
         Assert.state(updated == 1, "Failed to create item " + item.getName());
     }
 
