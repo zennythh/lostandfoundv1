@@ -11,7 +11,7 @@
     "campus": "Congress",
     "category": "Personal_Items",
     "deleted": false,
-    "author": null
+    "authorId": 1
   },
   {
     "itemId": 2,
@@ -24,7 +24,7 @@
     "campus": "Bagong_Silang",
     "category": "Electronics",
     "deleted": false,
-    "author": null
+    "authorId": 1
   },
   {
     "itemId": 3,
@@ -37,7 +37,7 @@
     "campus": "Camarin",
     "category": "Personal_Items",
     "deleted": false,
-    "author": null
+    "authorId": 1
   },
   {
     "itemId": 4,
@@ -50,7 +50,7 @@
     "campus": "South",
     "category": "Personal_Items",
     "deleted": false,
-    "author": null
+    "authorId": 1
   },
   {
     "itemId": 5,
@@ -63,7 +63,7 @@
     "campus": "Congress",
     "category": "Personal_Items",
     "deleted": false,
-    "author": null
+    "authorId": 1
   },
   {
     "itemId": 6,
@@ -76,7 +76,59 @@
     "campus": "Bagong_Silang",
     "category": "Electronics",
     "deleted": false,
-    "author": null
+    "authorId": 1
+  },
+  {
+    "itemId": 7,
+    "name": "cherrylobat",
+    "description": "puti",
+    "location": "silang room 101",
+    "reportedOn": "2020-01-17T00:00:00",
+    "foundOn": "2020-01-17T12:00:00",
+    "status": "Found",
+    "campus": "Bagong_Silang",
+    "category": "Electronics",
+    "deleted": false,
+    "authorId": 1
+  },
+  {
+    "itemId": 8,
+    "name": "cherrylobat",
+    "description": "puti",
+    "location": "silang room 101",
+    "reportedOn": "2020-01-17T00:00:00",
+    "foundOn": "2020-01-17T12:00:00",
+    "status": "Found",
+    "campus": "Bagong_Silang",
+    "category": "Electronics",
+    "deleted": false,
+    "authorId": 1
+  },
+  {
+    "itemId": 9,
+    "name": "cherrylobat",
+    "description": "puti",
+    "location": "silang room 101",
+    "reportedOn": "2020-01-17T00:00:00",
+    "foundOn": "2020-01-17T12:00:00",
+    "status": "Found",
+    "campus": "Bagong_Silang",
+    "category": "Electronics",
+    "deleted": false,
+    "authorId": 1
+  },
+  {
+    "itemId": 10,
+    "name": "panyo",
+    "description": "mahaba",
+    "location": "congress highway",
+    "reportedOn": "2020-01-18T00:00:00",
+    "foundOn": "2020-01-18T12:00:00",
+    "status": "Lost",
+    "campus": "Congress",
+    "category": "Personal_Items",
+    "deleted": false,
+    "authorId": 1
   }
 ]
 }
