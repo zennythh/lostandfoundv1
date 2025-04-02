@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2025 at 07:21 AM
+-- Generation Time: Apr 02, 2025 at 05:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `item` (
-  `item_id` int(11) NOT NULL,
+  `item_id` bigint(20) NOT NULL,
   `campus` enum('Bagong_Silang','Camarin','Congress','South') NOT NULL,
   `description` varchar(255) NOT NULL,
   `found_on` datetime(6) NOT NULL,
@@ -59,7 +59,12 @@ INSERT INTO `item` (`item_id`, `campus`, `description`, `found_on`, `location`, 
 (11, 'Congress', 'mahaba', '2020-01-18 12:00:00.000000', 'congress highway', 'panyo', '2020-01-18 00:00:00.000000', 'Lost', 0, 'Personal_Items', 1),
 (12, 'Congress', 'mahaba', '2020-01-18 12:00:00.000000', 'congress highway', 'panyo', '2020-01-18 00:00:00.000000', 'Lost', 0, 'Personal_Items', 1),
 (13, 'Congress', 'mahaba', '2020-01-18 12:00:00.000000', 'congress highway', 'panyo', '2020-01-18 00:00:00.000000', 'Lost', 0, 'Personal_Items', 1),
-(14, 'South', 'A brown leather wallet with ID and credit cards.', '2025-04-01 09:00:00.000000', 'Park', 'Lost Wallet', '2025-04-01 10:00:00.000000', 'Lost', 0, 'Personal_Items', 1);
+(14, 'South', 'A brown leather wallet with ID and credit cards.', '2025-04-01 09:00:00.000000', 'Park', 'Lost Wallet', '2025-04-01 10:00:00.000000', 'Lost', 0, 'Personal_Items', 1),
+(15, 'Congress', 'maikli', '2025-03-28 19:56:07.000000', 'congress rm 101', 'panyo', '2025-03-28 19:56:07.000000', 'Lost', 0, 'Personal_Items', 1),
+(16, 'Congress', 'maikli', '2025-03-28 19:56:07.000000', 'congress rm 101', 'panyo', '2025-03-28 19:56:07.000000', 'Lost', 0, 'Personal_Items', 1),
+(17, 'Congress', 'maikli', '2025-03-28 19:56:07.000000', 'congress rm 101', 'panyo', '2025-03-28 19:56:07.000000', 'Lost', 0, 'Personal_Items', 1),
+(18, 'Congress', 'maikli', '2025-03-28 19:56:07.000000', 'congress rm 101', 'panyo', '2025-03-28 19:56:07.000000', 'Lost', 0, 'Personal_Items', 1),
+(19, 'Congress', 'maikli', '2025-03-28 19:56:07.000000', 'congress rm 101', 'shabu', '2025-03-28 19:56:07.000000', 'Lost', 0, 'Personal_Items', 1);
 
 -- --------------------------------------------------------
 
@@ -69,21 +74,23 @@ INSERT INTO `item` (`item_id`, `campus`, `description`, `found_on`, `location`, 
 
 CREATE TABLE `users` (
   `id` bigint(20) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `role` enum('Admin','User') NOT NULL
+  `role` enum('Admin','User') NOT NULL,
+  `contactnum` varchar(15) NOT NULL,
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `middle_name`, `password`, `username`, `role`) VALUES
-(1, 'guest', 'guest', 'guest', 'guest', 'guest', 'Admin'),
-(2, 'Gian', 'Dela Torre', 'Bengosta', 'sikuya', 'pinoybigbrother', 'Admin');
+INSERT INTO `users` (`id`, `username`, `password`, `first_name`, `last_name`, `middle_name`, `role`, `contactnum`, `email`) VALUES
+(1, 'guest', 'guest', 'guest', 'guest', 'guest', 'Admin', '111111', 'guest@email.com'),
+(2, 'pinoybigbrother', 'sikuya', 'Gian', 'Dela Torre', 'Bengosta', 'Admin', '', '');
 
 --
 -- Indexes for dumped tables
@@ -101,7 +108,7 @@ ALTER TABLE `item`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UKr43af9ap4edm43mmtq01oddj6` (`username`);
+  ADD UNIQUE KEY `UNIQUE` (`username`,`contactnum`,`email`) USING BTREE;
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -111,7 +118,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `item_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
