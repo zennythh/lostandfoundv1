@@ -1,6 +1,7 @@
 package com.untilifoundyou.lostandfound.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.untilifoundyou.lostandfound.enums.ItemStatus;
 import com.untilifoundyou.lostandfound.enums.ItemCampus;
 import com.untilifoundyou.lostandfound.enums.ItemCategory;
@@ -18,8 +19,9 @@ import java.time.LocalDateTime;
 public class Item {
 
     @Id
+    @Column(name = "item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer itemId;
+    private Long itemId;
 
     @NotEmpty
     @Column(nullable = false)
@@ -52,8 +54,10 @@ public class Item {
     @Column(nullable = false)
     private Boolean deleted = false;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "author_id", nullable = false)
-    @JsonManagedReference
-    private User author;
+    /*JsonManagedReference
+    @JsonProperty("author")
+    @ManyToOne(fetch = FetchType.EAGER)*/
+    @Column(name = "author_id")
+    private Long authorId;
+
 }

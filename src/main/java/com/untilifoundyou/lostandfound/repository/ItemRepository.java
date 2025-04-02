@@ -71,11 +71,11 @@ public class ItemRepository {
         .query(Item.class)
         .optional();
 }
-
-    // CREATE METHOD
+    // CREATE
     public void create(Item item) {
         List<Object> params = new ArrayList<>();
 
+        // Set item details
         params.add(item.getName());
         params.add(item.getDescription());
         params.add(item.getLocation());
@@ -87,42 +87,42 @@ public class ItemRepository {
 
         // Get author_id (default to guest if null)
         Long authorId;
-        if (item.getAuthor() == null || item.getAuthor().getId() == null) {
-            // Fetch the guest user from the database
+        if (item.getAuthorId() == null) {
+            // Fetch the guest user from the database if no author_id is provided
             authorId = jdbcClient.sql("SELECT id FROM users WHERE username = 'guest'")
                     .query(Long.class)
                     .single();
-
-            // Set the 'author' in the item object too (important for later use and serialization)
-            User guestUser = jdbcClient.sql("SELECT * FROM users WHERE id = ?")
-                    .params(authorId)
-                    .query(User.class)
-                    .single();
-
-            item.setAuthor(guestUser);  // Set the guest user as the author of the item
         } else {
-            authorId = item.getAuthor().getId();
+            authorId = item.getAuthorId();  // Use the provided author_id if it exists
         }
 
-        params.add(authorId); // Add the resolved author_id
+        params.add(authorId);  // Add author_id to params
 
+        // Insert item and retrieve the generated ID using MySQL's LAST_INSERT_ID()
         var updated = jdbcClient.sql(
-                        "INSERT INTO Item (name, description, location, reported_on, found_on, status, campus, category, deleted, author_id) " +
+                        "INSERT INTO item (name, description, location, reported_on, found_on, status, campus, category, deleted, author_id) " +
                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, FALSE, ?)"
                 )
                 .params(params)
                 .update();
 
-        // Now fetch the item from the database and populate the 'author' field
-        Item savedItem = jdbcClient.sql("SELECT * FROM item WHERE itemId = ?")
-                .params(item.getItemId())  // Use the saved item's ID to fetch it
+        Assert.state(updated == 1, "Failed to create item " + item.getName());
+
+        // Fetch the generated item_id
+        Long generatedId = jdbcClient.sql("SELECT LAST_INSERT_ID()")
+                .query(Long.class)
+                .single();
+
+        // Fetch the newly created item
+        Item savedItem = jdbcClient.sql("SELECT * FROM item WHERE item_id = ?")
+                .params(generatedId)
                 .query(Item.class)
                 .single();
 
-        // Now you have the complete item with the author properly populated
-        item.setAuthor(savedItem.getAuthor());
-
-        Assert.state(updated == 1, "Failed to create item " + item.getName());
+        // Set the item's ID (ensure Item class has setItemId method)
+        item.setItemId(generatedId);
+        // We no longer set the author field directly because we're storing author_id
+        item.setAuthorId(savedItem.getAuthorId());  // Use author_id instead of author object
     }
 
     // UPDATE METHOD
