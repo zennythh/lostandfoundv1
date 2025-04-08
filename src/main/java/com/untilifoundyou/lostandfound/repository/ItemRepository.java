@@ -3,6 +3,7 @@ package com.untilifoundyou.lostandfound.repository;
 import com.untilifoundyou.lostandfound.model.*;
 import com.untilifoundyou.lostandfound.controller.*;
 import com.untilifoundyou.lostandfound.enums.*;
+import com.untilifoundyou.lostandfound.security.JwtUtil;
 import org.springframework.stereotype.Repository;
 import jakarta.annotation.PostConstruct;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 @Repository
@@ -72,10 +74,10 @@ public class ItemRepository {
         .optional();
 }
     // CREATE
-    public void create(Item item) {
+    public void create(Item item, @RequestHeader("Authorization") String token) {
         List<Object> params = new ArrayList<>();
 
-        // Set item details
+        // Set item details (no change)
         params.add(item.getName());
         params.add(item.getDescription());
         params.add(item.getLocation());
@@ -85,17 +87,21 @@ public class ItemRepository {
         params.add(item.getCampus() != null ? item.getCampus().toString() : null);
         params.add(item.getCategory() != null ? item.getCategory().toString() : null);
 
-        // Get author_id (default to guest if null)
-        Long authorId;
-        if (item.getAuthorId() == null) {
-            // Fetch the guest user from the database if no author_id is provided
+        // Extract authorId from the JWT (instead of passing it as a parameter)
+        Long authorId = null;
+        if (token != null && token.startsWith("Bearer ")) {
+            String jwtToken = token.substring(7);  // Remove the "Bearer " prefix
+            authorId = jwtUtil.extractUserId(jwtToken);  // Assuming "userId" is stored in the JWT token
+        }
+
+        // If no authorId is extracted (e.g., invalid or missing token), default to guest
+        if (authorId == null) {
             authorId = jdbcClient.sql("SELECT id FROM users WHERE username = 'guest'")
                     .query(Long.class)
                     .single();
-        } else {
-            authorId = item.getAuthorId();  // Use the provided author_id if it exists
         }
 
+        // Add the authorId to the parameters
         params.add(authorId);  // Add author_id to params
 
         // Insert item and retrieve the generated ID using MySQL's LAST_INSERT_ID()
