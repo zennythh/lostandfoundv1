@@ -36,13 +36,13 @@ public class ItemController {
         return item.get();
     }
 
-    //CREATE ITEM
+    // CREATE ITEM
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public void create(@Valid @RequestBody Item item){
-
-        itemRepository.create(item);
+    public void create(@Valid @RequestBody Item item, @RequestHeader("Authorization") String token) {
+        itemRepository.create(item, token);  // Pass both the item and the token
     }
+
 
 
     //UPDATE ITEM

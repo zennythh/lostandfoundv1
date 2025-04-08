@@ -1,6 +1,6 @@
 package com.untilifoundyou.lostandfound.service;
 
-import com.untilifoundyou.lostandfound.model.Item;
+import com.untilifoundyou.lostandfound.model.*;
 import com.untilifoundyou.lostandfound.repository.ItemRepository;
 import com.untilifoundyou.lostandfound.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +18,43 @@ public class ItemService {
         this.jwtUtil = jwtUtil;
     }
 
-    // Create item logic
-    public void createItem(Item item, String token) {
-        Long authorId = extractUserIdFromJwt(token);
+    // CREATE ITEM (With JWT token to extract userId)
+    public void create(Item item, String token) {
+        // Extract userId from JWT token
+        Long authorId = extractUserIdFromToken(token);
 
-        if (authorId == null) {
-            // If no user found in JWT, default to guest user
-            authorId = getGuestUserId();
-        }
-
-        item.setAuthorId(authorId);  // Set author ID from JWT or guest
-
-        itemRepository.create(item);  // Save item using the repository
+        // Call repository method to create item
+        itemRepository.create(item, authorId);
     }
 
-    // Helper method to extract user ID from JWT
-    private Long extractUserIdFromJwt(String token) {
+    // Extract userId from JWT token
+    private Long extractUserIdFromToken(String token) {
+        Long authorId = null;
         if (token != null && token.startsWith("Bearer ")) {
-            String jwtToken = token.substring(7);  // Remove "Bearer " prefix
-            return jwtUtil.extractUserId(jwtToken);  // Extract userId from JWT
+            String jwtToken = token.substring(7);  // Remove the "Bearer " prefix
+            authorId = jwtUtil.extractUserId(jwtToken);  // Assuming "userId" is stored in the JWT token
         }
-        return null;
+
+        // If no authorId is extracted, use a default (e.g., guest user)
+        if (authorId == null) {
+            authorId = 1L;  // Default guest user ID or fetch from DB if needed
+        }
+
+        return authorId;
     }
 
-    // Helper method to get the guest user ID
-    private Long getGuestUserId() {
-        // Here you can implement a way to get the guest user ID from the database
-        // For example, fetching the guest user from the database
-        // This is just a placeholder
-        return 1L;  // Return the guest user ID (you need to modify it to fit your actual data source)
+    // UPDATE ITEM
+    public void update(Item item, Integer itemid) {
+        itemRepository.update(item, itemid);
+    }
+
+    // DELETE ITEM
+    public void delete(Integer itemId) {
+        itemRepository.delete(itemId);
+    }
+
+    // RESTORE ITEM
+    public void restore(Integer itemId) {
+        itemRepository.restore(itemId);
     }
 }
