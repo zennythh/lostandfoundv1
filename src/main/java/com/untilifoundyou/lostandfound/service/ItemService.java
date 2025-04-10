@@ -6,6 +6,8 @@ import com.untilifoundyou.lostandfound.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemService {
 
@@ -20,10 +22,7 @@ public class ItemService {
 
     // CREATE ITEM (With JWT token to extract userId)
     public void create(Item item, String token) {
-        // Extract userId from JWT token
         Long authorId = extractUserIdFromToken(token);
-
-        // Call repository method to create item
         itemRepository.create(item, authorId);
     }
 
@@ -44,8 +43,8 @@ public class ItemService {
     }
 
     // UPDATE ITEM
-    public void update(Item item, Integer itemid) {
-        itemRepository.update(item, itemid);
+    public void update(Item item, Integer itemId) {
+        itemRepository.update(item, itemId);
     }
 
     // DELETE ITEM
@@ -56,5 +55,13 @@ public class ItemService {
     // RESTORE ITEM
     public void restore(Integer itemId) {
         itemRepository.restore(itemId);
+    }
+
+    // SAVE ALL ITEMS METHOD
+    public void saveAll(List<Item> items, Long authorId) {
+        items.stream().forEach(item -> {
+            item.setAuthorId(authorId); // Hardcode the authorId for each item
+            itemRepository.create(item, 1L); // Now call the create method for each item
+        });
     }
 }

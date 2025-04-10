@@ -2,6 +2,7 @@ package com.untilifoundyou.lostandfound.controller;
 
 import com.untilifoundyou.lostandfound.repository.*;
 import com.untilifoundyou.lostandfound.model.*;
+import com.untilifoundyou.lostandfound.service.ItemService;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -16,9 +17,11 @@ import org.springframework.web.server.ResponseStatusException;
 public class ItemController {
 
     public final ItemRepository itemRepository;
+    private final ItemService itemService;
 
-    public ItemController(ItemRepository itemRepository){
+    public ItemController(ItemRepository itemRepository, ItemService itemService){
         this.itemRepository = itemRepository;
+        this.itemService = itemService;
     }
     
     @GetMapping("")
@@ -27,9 +30,9 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public Item findByID(@PathVariable("id") Integer id){
+    public Item findByID(@PathVariable("id") Long id){
 
-        Optional<Item> item = itemRepository.findByID(id);
+        Optional<Item> item = itemRepository.findById(id);
         if(item.isEmpty()){
             throw new ItemNotFoundException();
         }
@@ -40,10 +43,8 @@ public class ItemController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public void create(@Valid @RequestBody Item item, @RequestHeader("Authorization") String token) {
-        itemRepository.create(item, token);  // Pass both the item and the token
+        itemService.create(item, token);
     }
-
-
 
     //UPDATE ITEM
     @ResponseStatus(HttpStatus.NO_CONTENT)
