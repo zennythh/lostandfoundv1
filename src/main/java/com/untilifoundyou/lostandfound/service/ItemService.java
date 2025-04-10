@@ -3,6 +3,7 @@ package com.untilifoundyou.lostandfound.service;
 import com.untilifoundyou.lostandfound.model.*;
 import com.untilifoundyou.lostandfound.repository.ItemRepository;
 import com.untilifoundyou.lostandfound.security.JwtUtil;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,7 @@ public class ItemService {
     }
 
     // SAVE ALL ITEMS METHOD
+    @Transactional
     public void saveAll(List<Item> items, Long authorId) {
         items.stream().forEach(item -> {
             item.setAuthorId(authorId); // Hardcode the authorId for each item

@@ -39,6 +39,15 @@ public class User {
     @Column(nullable = false)
     private UserRole role;
 
+    @Column(nullable = false)
+    private String contactNum;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
     /*@JsonBackReference
     @JsonIgnore*/
     @OneToMany(mappedBy = "authorId", cascade = CascadeType.ALL, orphanRemoval = true)

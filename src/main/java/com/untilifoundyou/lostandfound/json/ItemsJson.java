@@ -21,7 +21,7 @@ public class ItemsJson implements CommandLineRunner {
     private final ItemService itemService;
 
     // Assuming you have a default authorId like 1 for the guest user
-    private static final Long DEFAULT_AUTHOR_ID = 1L;
+    private static final Long DEFAULT_AUTHOR_ID = 100L;
 
     public ItemsJson(ItemRepository itemRepository, ItemService itemService, ObjectMapper objectMapper){
         this.itemRepository = itemRepository;
