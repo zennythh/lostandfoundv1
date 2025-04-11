@@ -26,7 +26,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // ✅ Enable CORS if frontend involved
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // ✅ Allow login
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/items").permitAll()
+                        .requestMatchers("/api/items/count").permitAll()  
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

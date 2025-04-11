@@ -1,6 +1,7 @@
 package com.untilifoundyou.lostandfound.controller;
 
 import com.untilifoundyou.lostandfound.repository.*;
+import com.untilifoundyou.lostandfound.enums.ItemStatus;
 import com.untilifoundyou.lostandfound.model.*;
 import com.untilifoundyou.lostandfound.service.ItemService;
 import java.util.List;
@@ -41,14 +42,14 @@ public class ItemController {
 
     // CREATE ITEM
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("")
+    @PostMapping("/report")
     public void create(@Valid @RequestBody Item item, @RequestHeader("Authorization") String token) {
         itemService.create(item, token);
     }
 
     //UPDATE ITEM
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public void update(@Valid @RequestBody Item item, @PathVariable("id") Integer id){
         itemRepository.update(item, id);
     }
