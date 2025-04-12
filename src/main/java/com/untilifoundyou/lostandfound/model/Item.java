@@ -60,4 +60,8 @@ public class Item {
     @Column(name = "author_id")
     private Long authorId;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
+
 }
