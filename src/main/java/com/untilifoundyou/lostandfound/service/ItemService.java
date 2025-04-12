@@ -6,8 +6,15 @@ import com.untilifoundyou.lostandfound.security.JwtUtil;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ItemService {
@@ -21,9 +28,30 @@ public class ItemService {
         this.jwtUtil = jwtUtil;
     }
 
-    // CREATE ITEM (With JWT token to extract userId)
-    public void create(Item item, String token) {
+    // CREATE ITEM
+    public void create(Item item, MultipartFile file, String token) {
         Long authorId = extractUserIdFromToken(token);
+
+        // Handle optional image upload
+        if (file != null && !file.isEmpty()) {
+            try {
+                String uploadDir = "uploads/";
+                File dir = new File(uploadDir);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                Path filePath = Paths.get(uploadDir, fileName);
+                Files.copy(file.getInputStream(), filePath);
+
+                item.setImagePath(uploadDir + fileName); // Save relative path
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to upload image", e);
+            }
+        }
+
+        // Save item
         itemRepository.create(item, authorId);
     }
 

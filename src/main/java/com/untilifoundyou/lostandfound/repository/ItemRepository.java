@@ -52,11 +52,12 @@ public class ItemRepository {
         params.add(item.getStatus() != null ? item.getStatus().toString() : null);
         params.add(item.getCampus() != null ? item.getCampus().toString() : null);
         params.add(item.getCategory() != null ? item.getCategory().toString() : null);
-        params.add(authorId); // Use the extracted authorId directly
+        params.add(item.getImagePath()); // NEW: include image path in DB
+        params.add(authorId);
 
         var updated = jdbcClient.sql(
-                "INSERT INTO item (name, description, location, reported_on, found_on, status, campus, category, deleted, author_id) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, FALSE, ?)"
+                "INSERT INTO item (name, description, location, reported_on, found_on, status, campus, category, image_path, deleted, author_id) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, FALSE, ?)"
         ).params(params).update();
 
         Assert.state(updated == 1, "Failed to create item " + item.getName());
@@ -73,6 +74,7 @@ public class ItemRepository {
         item.setItemId(generatedId);
         item.setAuthorId(savedItem.getAuthorId());
     }
+
 
     // UPDATE ITEM
     public void update(Item item, Integer itemid) {
