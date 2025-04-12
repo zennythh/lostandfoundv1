@@ -18,6 +18,7 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "first_name", nullable = false)
@@ -38,6 +39,15 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole role;
+
+    @Column(name = "contact_num", nullable = false)
+    private String contactNum;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
 
     /*@JsonBackReference
     @JsonIgnore*/

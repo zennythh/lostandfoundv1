@@ -1,0 +1,16 @@
+{
+  "users":
+[
+  {
+    "id":100,
+    "firstName":"Guest",
+    "middleName":"Guest",
+    "lastName":"Guest",
+    "username":"guest",
+    "password":"guest",
+    "email":"guestuser@gmail.com",
+    "contactNum":"09232233215",
+    "role":"User"
+  }
+]
+}
