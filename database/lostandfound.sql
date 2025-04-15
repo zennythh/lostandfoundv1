@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 01:09 PM
+-- Generation Time: Apr 15, 2025 at 01:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `lostandfound`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `conversation`
+--
+
+CREATE TABLE `conversation` (
+  `id` bigint(20) NOT NULL,
+  `user1_id` bigint(20) NOT NULL,
+  `user2_id` bigint(20) NOT NULL,
+  `user_low_id` bigint(20) NOT NULL,
+  `user_high_id` bigint(20) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -110,6 +125,15 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `middle_name`, `password`,
 --
 
 --
+-- Indexes for table `conversation`
+--
+ALTER TABLE `conversation`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_pair` (`user_low_id`,`user_high_id`),
+  ADD KEY `user1_id` (`user1_id`),
+  ADD KEY `user2_id` (`user2_id`);
+
+--
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
@@ -135,6 +159,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `conversation`
+--
+ALTER TABLE `conversation`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
@@ -155,6 +185,13 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `conversation`
+--
+ALTER TABLE `conversation`
+  ADD CONSTRAINT `conversation_ibfk_1` FOREIGN KEY (`user1_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `conversation_ibfk_2` FOREIGN KEY (`user2_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `message`
