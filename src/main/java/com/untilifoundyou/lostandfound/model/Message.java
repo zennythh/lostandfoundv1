@@ -20,6 +20,8 @@ public class Message {
     @ManyToOne
     private User recipient;
 
+    private Long conversationId;
+
     private String content;
 
     private LocalDateTime timestamp = LocalDateTime.now();

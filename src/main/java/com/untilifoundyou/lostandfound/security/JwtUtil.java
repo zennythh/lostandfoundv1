@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +15,8 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    // In production, store this securely (e.g., in environment variables or a vault)
-    private final String SECRET_KEY = "secretttttt";  // Change this!
+    // In production, store this securely (e.g., in environment variables or a secure vault)
+    private final byte[] SECRET_KEY = "my_super_secret_key_1234567890!".getBytes(StandardCharsets.UTF_8);
 
     // Generate token based on username and userId
     public String generateToken(String username, Long userId) {
@@ -27,9 +28,9 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(subject)              // typically the username
+                .setSubject(subject)  // typically the username
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 24 hours
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }

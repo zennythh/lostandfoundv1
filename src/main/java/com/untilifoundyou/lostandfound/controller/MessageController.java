@@ -20,13 +20,19 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<Message> sendMessage(@RequestBody Message message) {
-        Message sent = messageService.sendMessage(message.getSender().getId(), message.getRecipient().getId(), message.getContent());
+    public ResponseEntity<Message> sendMessage(
+            @RequestBody Message message,
+            @RequestHeader("Authorization") String authHeader
+    ) {
+        // Remove the "Bearer " prefix
+        String token = authHeader.replace("Bearer ", "");
+        Message sent = messageService.sendMessage(token, message.getRecipient().getId(), message.getContent());
         return ResponseEntity.ok(sent);
     }
 
     @GetMapping("/history")
     public ResponseEntity<List<Message>> getChatHistory(
+            @PathVariable Long conversationId,
             @RequestParam Long user1Id,
             @RequestParam Long user2Id) {
         return ResponseEntity.ok(messageService.getChatHistory(user1Id, user2Id));

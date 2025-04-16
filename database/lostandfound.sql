@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2025 at 01:05 PM
+-- Generation Time: Apr 16, 2025 at 03:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,6 +35,14 @@ CREATE TABLE `conversation` (
   `user_high_id` bigint(20) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `conversation`
+--
+
+INSERT INTO `conversation` (`id`, `user1_id`, `user2_id`, `user_low_id`, `user_high_id`, `created_at`) VALUES
+(1, 2, 1, 1, 2, '2025-04-16 21:15:09'),
+(2, 2, 3, 2, 3, '2025-04-16 21:25:58');
 
 -- --------------------------------------------------------
 
@@ -87,10 +95,19 @@ CREATE TABLE `message` (
   `id` bigint(20) NOT NULL,
   `sender_id` bigint(20) NOT NULL,
   `recipient_id` bigint(20) NOT NULL,
-  `content` text NOT NULL,
+  `content` varchar(255) DEFAULT NULL,
   `timestamp` datetime DEFAULT current_timestamp(),
-  `seen` tinyint(1) DEFAULT 0
+  `seen` tinyint(1) DEFAULT 0,
+  `conversation_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `sender_id`, `recipient_id`, `content`, `timestamp`, `seen`, `conversation_id`) VALUES
+(1, 2, 1, 'Hello from Postman!', '2025-04-16 21:21:50', 0, 1),
+(2, 2, 3, 'namo carlo', '2025-04-16 21:25:58', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -145,7 +162,8 @@ ALTER TABLE `item`
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sender_id` (`sender_id`),
-  ADD KEY `recipient_id` (`recipient_id`);
+  ADD KEY `recipient_id` (`recipient_id`),
+  ADD KEY `fk_conversation_id` (`conversation_id`);
 
 --
 -- Indexes for table `users`
@@ -162,7 +180,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `conversation`
 --
 ALTER TABLE `conversation`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -174,7 +192,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -197,6 +215,7 @@ ALTER TABLE `conversation`
 -- Constraints for table `message`
 --
 ALTER TABLE `message`
+  ADD CONSTRAINT `fk_conversation_id` FOREIGN KEY (`conversation_id`) REFERENCES `conversation` (`id`),
   ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `users` (`id`);
 COMMIT;
