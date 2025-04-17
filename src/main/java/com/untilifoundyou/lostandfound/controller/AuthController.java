@@ -5,9 +5,12 @@ import com.untilifoundyou.lostandfound.model.User;
 import com.untilifoundyou.lostandfound.repository.UserRepository;
 import com.untilifoundyou.lostandfound.security.JwtUtil;
 import com.untilifoundyou.lostandfound.security.GuestUserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -15,12 +18,10 @@ import java.util.Map;
 public class AuthController {
 
     private final UserRepository userRepository;
-    private final GuestUserService guestUserService;
     private final JwtUtil jwtUtil;
 
-    public AuthController(UserRepository userRepository, GuestUserService guestUserService, JwtUtil jwtUtil) {
+    public AuthController(UserRepository userRepository,  JwtUtil jwtUtil) {
         this.userRepository = userRepository;
-        this.guestUserService = guestUserService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -29,29 +30,23 @@ public class AuthController {
         String username = request.get("username");
         String password = request.get("password");
 
-        // Check if username exists and is valid
+        // Look for the user by username
         User user = userRepository.findByUsername(username).orElse(null);
 
-        // If the user is valid and the password matches
-        if (user != null && user.getPassword().equals(password)) {
-            // Only proceed if the user has a role of "user" (exclude admins)
-            if (UserRole.User.equals(user.getRole())) {
-                // Generate JWT token
-                String token = jwtUtil.generateToken(user.getUsername(), user.getId());
-
-                // Return response with the token
-                return ResponseEntity.ok(Map.of("message", "Login successful", "token", token));
-            } else {
-                // If the user is an admin, return a forbidden error
-                return ResponseEntity.status(403).body("Access denied: Admin users cannot log in here.");
-            }
+        // Validate credentials
+        if (user == null || !user.getPassword().equals(password)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid username or password.");
         }
 
-        // If the user is not found or credentials don't match, log in as guest
-        User guestUser = guestUserService.getGuestUser();  // Get the guest user from the database
-        String token = jwtUtil.generateToken(guestUser.getUsername(), guestUser.getId());
+        // Generate token for valid user
+        String token = jwtUtil.generateToken(user.getUsername(), user.getId());
 
-        return ResponseEntity.ok(Map.of("message", "Logged in as guest: " + guestUser.getUsername(), "token", token));
+        // Return login success response with role
+        return ResponseEntity.ok(Map.of(
+                "message", "Login successful",
+                "token", token,
+                "role", user.getRole().toString()
+        ));
     }
 
     @PostMapping("/logout")

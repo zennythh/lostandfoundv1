@@ -63,5 +63,4 @@ public class Item {
     @Column(name = "image_path")
     private String imagePath;
 
-
 }
