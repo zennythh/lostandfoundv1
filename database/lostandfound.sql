@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2025 at 04:26 PM
+-- Generation Time: Apr 19, 2025 at 02:30 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -83,7 +83,14 @@ INSERT INTO `item` (`item_id`, `author_id`, `campus`, `category`, `deleted`, `de
 (11, 1, 'South', 'Personal_Items', b'0', 'red', '2020-01-15 12:00:00.000000', 'ucc south', 'aquaflask', '2020-01-15 00:00:00.000000', 'Found', NULL),
 (12, 1, 'Camarin', 'Documents', b'0', 'a4', '2025-04-12 15:31:21.000000', 'chs gate', 'wallet ', '2025-04-12 15:31:21.000000', 'Lost', NULL),
 (13, 2, 'Camarin', 'Electronics', b'0', 'iPhone 16 Pro Max', '2025-04-12 09:13:24.000000', 'sa may JNV', 'Cellphone', '2025-04-12 09:13:24.000000', 'Lost', 'uploads/f858f77a-6b0e-44d9-b40f-8f13c294fb9c_download.jpg'),
-(14, 2, 'Camarin', 'Electronics', b'0', 'iPhone 14 Pro ', '2025-04-12 09:13:24.000000', 'sa may JNV', 'Cellphone', '2025-04-12 09:13:24.000000', 'Lost', NULL);
+(14, 2, 'Camarin', 'Electronics', b'0', 'iPhone 14 Pro ', '2025-04-12 09:13:24.000000', 'sa may JNV', 'Cellphone', '2025-04-12 09:13:24.000000', 'Lost', NULL),
+(15, 2, 'Congress', 'Documents', b'0', 'papel', '2025-04-19 19:24:00.000000', 'mis', 'form 137', '2025-04-19 19:24:54.000000', 'Lost', NULL),
+(16, 2, 'Congress', 'Documents', b'0', 'papel', '2025-04-19 19:26:00.000000', 'mis', 'form 137', '2025-04-19 19:26:19.000000', 'Lost', NULL),
+(17, 2, 'Congress', 'Documents', b'0', 'papel', '2025-04-19 19:28:00.000000', 'mis', 'form 137', '2025-04-19 19:28:19.000000', 'Lost', NULL),
+(18, 2, 'Congress', 'Documents', b'0', 'dasdasdsadsa', '2025-04-19 19:32:00.000000', 'mis', 'form 137', '2025-04-19 19:32:48.000000', 'Lost', NULL),
+(19, 2, 'Congress', 'Documents', b'0', '12321', '2025-04-19 19:33:00.000000', 'mis', 'form 137', '2025-04-19 19:34:05.000000', 'Lost', NULL),
+(20, 2, 'Congress', 'Documents', b'0', '12321', '2025-04-19 19:33:00.000000', 'mis', 'form 137', '2025-04-19 19:37:23.000000', 'Lost', NULL),
+(21, 2, 'Camarin', 'Personal_Items', b'0', 'aus aus....', '2023-01-27 17:00:00.000000', 'sa kanto', 'my will to live </3', '2025-04-19 19:58:37.000000', 'Claimed', 'uploads/76bb6cb9-b023-4379-8594-0443f970d742_cb3e014d6122af3b43933bb571859ae7.jpg');
 
 -- --------------------------------------------------------
 
@@ -135,7 +142,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `middle_name`, `password`, `role`, `username`, `deleted`, `email`, `contact_num`) VALUES
 (1, 'Guest', 'Guest', NULL, 'guest', 'User', 'guest', 0, 'guestuser@gmail.com', '09232233215'),
 (2, 'Tester', 'Tester', NULL, 'mypassword', 'User', 'testuser', 0, 'testuser@gmail.com', '0929329445566'),
-(3, 'Gian', 'Dela Torre', 'B.', 'sikuya', 'Admin', 'pinoybigbrother', 0, 'bigbrother@gmail.com', '09232662744');
+(3, 'Gian', 'Dela Torre', 'B.', 'sikuya', 'Admin', 'pinoybigbrother', 0, 'bigbrother@gmail.com', '09232662744'),
+(4, 'Gian Carlo', 'Dela Torre', 'Bengosta', 'zenny', 'User', 'velliv', 0, 'shr0udd.02@gmail.com', '09685433022');
 
 --
 -- Indexes for dumped tables
@@ -186,7 +194,7 @@ ALTER TABLE `conversation`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `item_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `item_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -198,7 +206,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
