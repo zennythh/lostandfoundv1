@@ -7,9 +7,11 @@ import com.untilifoundyou.lostandfound.service.ItemService;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ArrayList;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,11 +50,10 @@ public class ItemController {
     // CREATE ITEM
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/report", consumes = "multipart/form-data")
-    public void create(
+    public ResponseEntity<?> create(
             @RequestParam("name") String name,
             @RequestParam("description") String description,
             @RequestParam("location") String location,
-            @RequestParam("reportedOn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime reportedOn,
             @RequestParam(value = "foundOn", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDateTime foundOn,
             @RequestParam("status") String status,
             @RequestParam("campus") String campus,
@@ -64,13 +65,14 @@ public class ItemController {
         item.setName(name);
         item.setDescription(description);
         item.setLocation(location);
-        item.setReportedOn(reportedOn);
         item.setFoundOn(foundOn);
         item.setStatus(ItemStatus.valueOf(status));
         item.setCampus(ItemCampus.valueOf(campus));
         item.setCategory(ItemCategory.valueOf(category));
 
         itemService.create(item, file, token);
+
+        return ResponseEntity.ok(Map.of("message", "Item submitted successfully"));
     }
 
     //UPDATE ITEM

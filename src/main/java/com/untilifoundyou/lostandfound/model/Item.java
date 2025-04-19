@@ -33,7 +33,6 @@ public class Item {
     @Column(nullable = false)
     private String location = "";
 
-    @Column(nullable = false)
     private LocalDateTime reportedOn = LocalDateTime.now();
 
     @Column(nullable = false)

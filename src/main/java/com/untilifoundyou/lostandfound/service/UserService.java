@@ -13,7 +13,7 @@ public class UserService {
     private UserRepository userRepository;
 
     // REGISTER METHOD
-    public boolean register(String username, String password, String first_name, String middle_name, String last_name, String contactNum, String email, UserRole role) {
+    public boolean register(String username, String password, String first_name, String middle_name, String last_name, String contactNum, String email) {
         if (userRepository.existsByUsername(username)) {
             return false; // username already taken
         }
@@ -26,7 +26,7 @@ public class UserService {
         newUser.setLastName(last_name);
         newUser.setContactNum(contactNum);
         newUser.setEmail(email);
-        newUser.setRole(role);
+        newUser.setRole(UserRole.User);
 
         userRepository.save(newUser); // triggers insert, not merge
         return true;
